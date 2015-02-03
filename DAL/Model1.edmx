@@ -1,0 +1,391 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CoursesModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="CoursesModelStoreContainer">
+          <EntitySet Name="Courses" EntityType="CoursesModel.Store.Courses" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Courses_Specializations" EntityType="CoursesModel.Store.Courses_Specializations" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Departments" EntityType="CoursesModel.Store.Departments" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Departments_Years" EntityType="CoursesModel.Store.Departments_Years" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LinkTable" EntityType="CoursesModel.Store.LinkTable" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Specializtions" EntityType="CoursesModel.Store.Specializtions" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SummerSemester" EntityType="CoursesModel.Store.SummerSemester" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Years" EntityType="CoursesModel.Store.Years" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Courses_Specializations_ToCourses" Association="CoursesModel.Store.FK_Courses_Specializations_ToCourses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="Courses_Specializations" EntitySet="Courses_Specializations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Courses_Specializations_ToSpecializtions" Association="CoursesModel.Store.FK_Courses_Specializations_ToSpecializtions">
+            <End Role="Specializtions" EntitySet="Specializtions" />
+            <End Role="Courses_Specializations" EntitySet="Courses_Specializations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Departments_Years_ToDepartments" Association="CoursesModel.Store.FK_Departments_Years_ToDepartments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Departments_Years" EntitySet="Departments_Years" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Departments_Years_ToYears" Association="CoursesModel.Store.FK_Departments_Years_ToYears">
+            <End Role="Years" EntitySet="Years" />
+            <End Role="Departments_Years" EntitySet="Departments_Years" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Specializtions_To_Departments" Association="CoursesModel.Store.FK_Specializtions_To_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Specializtions" EntitySet="Specializtions" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Courses">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="SubjectCode" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Courses_Specializations">
+          <Key>
+            <PropertyRef Name="CourseId" />
+            <PropertyRef Name="SpecId" />
+          </Key>
+          <Property Name="CourseId" Type="int" Nullable="false" />
+          <Property Name="SpecId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Departments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Departments_Years">
+          <Key>
+            <PropertyRef Name="DepId" />
+            <PropertyRef Name="YearId" />
+          </Key>
+          <Property Name="DepId" Type="int" Nullable="false" />
+          <Property Name="YearId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LinkTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="SubjectCode" Type="int" />
+          <Property Name="SubjectDescription" Type="nvarchar" MaxLength="50" />
+          <Property Name="GroupCode" Type="int" />
+          <Property Name="PracticeCode" Type="int" />
+          <Property Name="Semester" Type="int" />
+        </EntityType>
+        <EntityType Name="Specializtions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="DepId" Type="int" />
+        </EntityType>
+        <EntityType Name="SummerSemester">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="SubjectCode" Type="int" />
+          <Property Name="SubjectDescription" Type="nvarchar" MaxLength="50" />
+          <Property Name="GroupCode" Type="int" />
+          <Property Name="OccupationDescription" Type="nvarchar" MaxLength="50" />
+          <Property Name="Lecturer" Type="nvarchar" MaxLength="50" />
+          <Property Name="Day" Type="nvarchar" MaxLength="20" />
+          <Property Name="StartHour" Type="time" />
+          <Property Name="EndHour" Type="time" />
+          <Property Name="Class" Type="nvarchar" MaxLength="50" />
+          <Property Name="NumConLessons" Type="int" />
+          <Property Name="Color" Type="nvarchar" MaxLength="50" />
+          <Property Name="Semester" Type="int" />
+        </EntityType>
+        <EntityType Name="Years">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Year" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Courses_Specializations_ToCourses">
+          <End Role="Courses" Type="CoursesModel.Store.Courses" Multiplicity="1" />
+          <End Role="Courses_Specializations" Type="CoursesModel.Store.Courses_Specializations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Courses_Specializations">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Courses_Specializations_ToSpecializtions">
+          <End Role="Specializtions" Type="CoursesModel.Store.Specializtions" Multiplicity="1" />
+          <End Role="Courses_Specializations" Type="CoursesModel.Store.Courses_Specializations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specializtions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Courses_Specializations">
+              <PropertyRef Name="SpecId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Departments_Years_ToDepartments">
+          <End Role="Departments" Type="CoursesModel.Store.Departments" Multiplicity="1" />
+          <End Role="Departments_Years" Type="CoursesModel.Store.Departments_Years" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Departments_Years">
+              <PropertyRef Name="DepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Departments_Years_ToYears">
+          <End Role="Years" Type="CoursesModel.Store.Years" Multiplicity="1" />
+          <End Role="Departments_Years" Type="CoursesModel.Store.Departments_Years" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Years">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Departments_Years">
+              <PropertyRef Name="YearId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Specializtions_To_Departments">
+          <End Role="Departments" Type="CoursesModel.Store.Departments" Multiplicity="0..1" />
+          <End Role="Specializtions" Type="CoursesModel.Store.Specializtions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Specializtions">
+              <PropertyRef Name="DepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CoursesModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CoursesEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Courses" EntityType="CoursesModel.Courses" />
+          <EntitySet Name="Departments" EntityType="CoursesModel.Departments" />
+          <EntitySet Name="LinkTable" EntityType="CoursesModel.LinkTable" />
+          <EntitySet Name="Specializtions" EntityType="CoursesModel.Specializtions" />
+          <EntitySet Name="CoursesDetails" EntityType="CoursesModel.CoursesDetails" />
+          <EntitySet Name="Years" EntityType="CoursesModel.Years" />
+          <AssociationSet Name="FK_Specializtions_To_Departments" Association="CoursesModel.FK_Specializtions_To_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Specializtions" EntitySet="Specializtions" />
+          </AssociationSet>
+          <AssociationSet Name="Courses_Specializations" Association="CoursesModel.Courses_Specializations">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="Specializtions" EntitySet="Specializtions" />
+          </AssociationSet>
+          <AssociationSet Name="Departments_Years" Association="CoursesModel.Departments_Years">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Years" EntitySet="Years" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Courses">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="SubjectCode" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Specializtions" Relationship="CoursesModel.Courses_Specializations" FromRole="Courses" ToRole="Specializtions" />
+        </EntityType>
+        <EntityType Name="Departments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Specializtions" Relationship="CoursesModel.FK_Specializtions_To_Departments" FromRole="Departments" ToRole="Specializtions" />
+          <NavigationProperty Name="Years" Relationship="CoursesModel.Departments_Years" FromRole="Departments" ToRole="Years" />
+        </EntityType>
+        <EntityType Name="LinkTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="SubjectCode" Type="Int32" />
+          <Property Name="SubjectDescription" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="GroupCode" Type="Int32" />
+          <Property Name="PracticeCode" Type="Int32" />
+          <Property Name="Semester" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Specializtions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="DepId" Type="Int32" />
+          <NavigationProperty Name="Departments" Relationship="CoursesModel.FK_Specializtions_To_Departments" FromRole="Specializtions" ToRole="Departments" />
+          <NavigationProperty Name="Courses" Relationship="CoursesModel.Courses_Specializations" FromRole="Specializtions" ToRole="Courses" />
+        </EntityType>
+        <EntityType Name="CoursesDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="SubjectCode" Type="Int32" />
+          <Property Name="SubjectDescription" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="GroupCode" Type="Int32" />
+          <Property Name="OccupationDescription" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Lecturer" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Day" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="StartHour" Type="Time" Precision="7" />
+          <Property Name="EndHour" Type="Time" Precision="7" />
+          <Property Name="Class" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="NumConLessons" Type="Int32" />
+          <Property Name="Color" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Semester" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Years">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Year" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Departments" Relationship="CoursesModel.Departments_Years" FromRole="Years" ToRole="Departments" />
+        </EntityType>
+        <Association Name="FK_Specializtions_To_Departments">
+          <End Role="Departments" Type="CoursesModel.Departments" Multiplicity="0..1" />
+          <End Role="Specializtions" Type="CoursesModel.Specializtions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Specializtions">
+              <PropertyRef Name="DepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Courses_Specializations">
+          <End Role="Courses" Type="CoursesModel.Courses" Multiplicity="*" />
+          <End Role="Specializtions" Type="CoursesModel.Specializtions" Multiplicity="*" />
+        </Association>
+        <Association Name="Departments_Years">
+          <End Role="Departments" Type="CoursesModel.Departments" Multiplicity="*" />
+          <End Role="Years" Type="CoursesModel.Years" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CoursesModelStoreContainer" CdmEntityContainer="CoursesEntities">
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="CoursesModel.Courses">
+              <MappingFragment StoreEntitySet="Courses">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SubjectCode" ColumnName="SubjectCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="CoursesModel.Departments">
+              <MappingFragment StoreEntitySet="Departments">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LinkTable">
+            <EntityTypeMapping TypeName="CoursesModel.LinkTable">
+              <MappingFragment StoreEntitySet="LinkTable">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SubjectCode" ColumnName="SubjectCode" />
+                <ScalarProperty Name="SubjectDescription" ColumnName="SubjectDescription" />
+                <ScalarProperty Name="GroupCode" ColumnName="GroupCode" />
+                <ScalarProperty Name="PracticeCode" ColumnName="PracticeCode" />
+                <ScalarProperty Name="Semester" ColumnName="Semester" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Specializtions">
+            <EntityTypeMapping TypeName="CoursesModel.Specializtions">
+              <MappingFragment StoreEntitySet="Specializtions">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DepId" ColumnName="DepId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CoursesDetails">
+            <EntityTypeMapping TypeName="CoursesModel.CoursesDetails">
+              <MappingFragment StoreEntitySet="SummerSemester">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SubjectCode" ColumnName="SubjectCode" />
+                <ScalarProperty Name="SubjectDescription" ColumnName="SubjectDescription" />
+                <ScalarProperty Name="GroupCode" ColumnName="GroupCode" />
+                <ScalarProperty Name="OccupationDescription" ColumnName="OccupationDescription" />
+                <ScalarProperty Name="Lecturer" ColumnName="Lecturer" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="StartHour" ColumnName="StartHour" />
+                <ScalarProperty Name="EndHour" ColumnName="EndHour" />
+                <ScalarProperty Name="Class" ColumnName="Class" />
+                <ScalarProperty Name="NumConLessons" ColumnName="NumConLessons" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Semester" ColumnName="Semester" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Years">
+            <EntityTypeMapping TypeName="CoursesModel.Years">
+              <MappingFragment StoreEntitySet="Years">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Courses_Specializations" TypeName="CoursesModel.Courses_Specializations" StoreEntitySet="Courses_Specializations">
+            <EndProperty Name="Courses">
+              <ScalarProperty Name="Id" ColumnName="CourseId" />
+            </EndProperty>
+            <EndProperty Name="Specializtions">
+              <ScalarProperty Name="Id" ColumnName="SpecId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Departments_Years" TypeName="CoursesModel.Departments_Years" StoreEntitySet="Departments_Years">
+            <EndProperty Name="Departments">
+              <ScalarProperty Name="Id" ColumnName="DepId" />
+            </EndProperty>
+            <EndProperty Name="Years">
+              <ScalarProperty Name="Id" ColumnName="YearId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
