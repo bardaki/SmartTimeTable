@@ -9,13 +9,15 @@
         $(this).parent('li').addClass('active').siblings().removeClass('active');
 
         if (currentAttrValue == "#tab2") {
-            $('#top').show();
+            $('#content').css({ 'background-color': '#575c54', 'width': '60%' });
+            //$('#footer').show();
             //$('#logo').show();
             //$('.tab-content').css("padding-bottom", "20%");
         }
 
         if (currentAttrValue == "#tab1") {
-            $('#top').show();
+            $('#content').css({ 'background-color': '#575c54', 'width': '60%' });
+           // $('#footer').show();
             //$('#logo').show();
             //$('.tab-content').css("padding-bottom", "20%");
         }

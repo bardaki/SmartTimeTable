@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace FinalProject.Models
 {
@@ -16,6 +17,8 @@ namespace FinalProject.Models
 
     public class BL
     {
+        private DAL.DAL dal = new DAL.DAL();
+
         //Find timeTables administration
         public List<TimeTable> GetTimeTable(List<CoursesDetails> semesterCourses, List<LinkTable> link, int NumOfDays, List<HourLimit> HourLimits, List<DayLimit> Days, int SortBy)
         {
@@ -71,33 +74,33 @@ namespace FinalProject.Models
         }
         
         //Arrange all courses by SubjectCode
-        public List<List<CourseGroup>> ArrangeBySubjectCode(List<List<CoursesDetails>> AllCourses)
+        public List<List<CourseGroup>> ArrangeBySubjectCode(List<List<CoursesDetails>> allCourses)
         {
             List<List<CourseGroup>> CoursesByNameAndGroup = new List<List<CourseGroup>>();
-            for (int i = 0; i < AllCourses.Count(); i++)
+            for (int i = 0; i < allCourses.Count(); i++)
             {
                 List<CourseGroup> CourseGroup = new List<CourseGroup>();
-                for (int j = 0; j < AllCourses[i].Count(); j++)
+                for (int j = 0; j < allCourses[i].Count(); j++)
                 {
                     var Contains = false;
                     CourseGroup cg = new CourseGroup();
-                    cg.coursesInGroup.Add(AllCourses[i][j]);
-                    var CourseCode = AllCourses[i][j].GroupCode;
+                    cg.coursesInGroup.Add(allCourses[i][j]);
+                    var CourseCode = allCourses[i][j].GroupCode;
                     foreach (var l in CourseGroup)
                     {
                         if (l.coursesInGroup[0].GroupCode == CourseCode)
                             Contains = true;
                     }
-                    for (int k = j + 1; k < AllCourses[i].Count() && !Contains; k++)
+                    for (int k = j + 1; k < allCourses[i].Count() && !Contains; k++)
                     {
-                        var CurrentCourseCode = AllCourses[i][k].GroupCode;
+                        var CurrentCourseCode = allCourses[i][k].GroupCode;
                         if (CurrentCourseCode != CourseCode)
                         {
                             break;
                         }
                         else
                         {
-                            cg.coursesInGroup.Add(AllCourses[i][k]);
+                            cg.coursesInGroup.Add(allCourses[i][k]);
                         }
                     }
                     if (!Contains)
@@ -163,9 +166,9 @@ namespace FinalProject.Models
         }
 
         //Add practice with different id
-        public List<List<CourseGroup>> AddDifferentIdPractices(List<List<CourseGroup>> GroupCourses, List<LinkTable> link)
+        public List<List<CourseGroup>> AddDifferentIdPractices(List<List<CourseGroup>> groupCourses, List<LinkTable> link)
         {
-            foreach (var l in GroupCourses)
+            foreach (var l in groupCourses)
             {
                 foreach (var c in l)
                 {
@@ -196,15 +199,15 @@ namespace FinalProject.Models
                 }
             }
 
-            return GroupCourses;
+            return groupCourses;
         }
         
         //Arrange courses by day
-        public List<TimeTable> ArrangeCoursesByDay(List<List<CourseGroup>> CoursesByGroup)
+        public List<TimeTable> ArrangeCoursesByDay(List<List<CourseGroup>> coursesByGroup)
         {
             List<TimeTable> TimeTables = new List<TimeTable>();
             List<List<CourseGroup>> TtCourses = new List<List<CourseGroup>>();
-            TtCourses = FindTT(CoursesByGroup);
+            TtCourses = FindTT(coursesByGroup);
             //Set "week courses" to timeTables
             foreach (var tt in TtCourses)
             {
@@ -270,14 +273,14 @@ namespace FinalProject.Models
         }
         
         //Main algorithm to find timeTables- Genetic Algorithm
-        public List<List<CourseGroup>> FindTT(List<List<CourseGroup>> CoursesByGroup)
+        public List<List<CourseGroup>> FindTT(List<List<CourseGroup>> coursesByGroup)
         {
             List<List<CourseGroup>> MainList = new List<List<CourseGroup>>();
             List<List<CourseGroup>> SubList = new List<List<CourseGroup>>();
 
-            if (CoursesByGroup.Count() == 1)
+            if (coursesByGroup.Count() == 1)
             {
-                foreach (var cg in CoursesByGroup[0])
+                foreach (var cg in coursesByGroup[0])
                 {
                     List<CourseGroup> Stack = new List<CourseGroup>();
                     Stack.Add(cg);
@@ -286,16 +289,16 @@ namespace FinalProject.Models
             }
             else
             {
-                for (int i = 0; i < CoursesByGroup.Count() - 1; i++)
+                for (int i = 0; i < coursesByGroup.Count() - 1; i++)
                 {
                     if (i == 0)
                     {
-                        MainList = GetMatches(CoursesByGroup[i], CoursesByGroup[i + 1]);
+                        MainList = GetMatches(coursesByGroup[i], coursesByGroup[i + 1]);
                     }
                     else
                     {
                         var RelevantCourses = GetRelevantCourse(MainList);
-                        SubList = GetMatches(RelevantCourses, CoursesByGroup[i + 1]);
+                        SubList = GetMatches(RelevantCourses, coursesByGroup[i + 1]);
                         MainList = AddToMainList(MainList, SubList);
                     }
                 }
@@ -304,12 +307,12 @@ namespace FinalProject.Models
         }
         
         //Find all match courses betwwen two courses lists
-        public List<List<CourseGroup>> GetMatches(List<CourseGroup> First, List<CourseGroup> Sec)
+        public List<List<CourseGroup>> GetMatches(List<CourseGroup> first, List<CourseGroup> seconed)
         {
             List<List<CourseGroup>> Courses = new List<List<CourseGroup>>();
-            foreach (var f in First)
+            foreach (var f in first)
             {
-                foreach (var s in Sec)
+                foreach (var s in seconed)
                 {
                     List<CourseGroup> Stack = new List<CourseGroup>();
                     Stack.Add(f);
@@ -324,12 +327,12 @@ namespace FinalProject.Models
         }
         
         //Add sub list to main list
-        public List<List<CourseGroup>> AddToMainList(List<List<CourseGroup>> MainList, List<List<CourseGroup>> SubList)
+        public List<List<CourseGroup>> AddToMainList(List<List<CourseGroup>> mainList, List<List<CourseGroup>> subList)
         {
             List<List<CourseGroup>> NewMainList = new List<List<CourseGroup>>();
-            foreach (var m in MainList)
+            foreach (var m in mainList)
             {
-                foreach (var s in SubList)
+                foreach (var s in subList)
                 {
                     if (ListsMatch(m, s))
                     {
@@ -356,10 +359,10 @@ namespace FinalProject.Models
         }
         
         //Return only relenavt courses that had match before
-        public List<CourseGroup> GetRelevantCourse(List<List<CourseGroup>> MainList)
+        public List<CourseGroup> GetRelevantCourse(List<List<CourseGroup>> mainList)
         {
             List<CourseGroup> RelevantCourses = new List<CourseGroup>();
-            foreach (var main in MainList)
+            foreach (var main in mainList)
             {
                 if (!RelevantCourses.Contains(main[main.Count() - 1]))
                     RelevantCourses.Add(main[main.Count() - 1]);
@@ -369,11 +372,11 @@ namespace FinalProject.Models
         }
         
         //Create full timeTable including empty hours from 8:00 to 23:00
-        public List<TimeTable> MakeTimeTable(List<TimeTable> TimeTables)
+        public List<TimeTable> MakeTimeTable(List<TimeTable> timeTables)
         {
             List<TimeTable> AllTimeTables = new List<TimeTable>();
 
-            for (int i = 0; i < TimeTables.Count(); i++)
+            for (int i = 0; i < timeTables.Count(); i++)
             {
                 //List<List<SummerSemester>> tTable = new List<List<SummerSemester>>();
                 TimeTable tTable = new TimeTable();
@@ -401,10 +404,10 @@ namespace FinalProject.Models
                 bool first = true;
                 int sumStart = 0, sumEnd = 0;
                 int countStart = 0, countEnd = 0;
-                foreach (var c in TimeTables[i].Sunday.Courses)
+                foreach (var c in timeTables[i].Sunday.Courses)
                 {
                     //Average of start and end hours
-                    if (TimeTables[i].Sunday.Courses.Last() == c)
+                    if (timeTables[i].Sunday.Courses.Last() == c)
                     {
                         sumEnd += (int)c.EndHour.Value.Hours;
                         countEnd++;
@@ -427,9 +430,9 @@ namespace FinalProject.Models
                     sTimea = (TimeSpan)(c.EndHour + new TimeSpan(0, 10, 0));
                 }
                 first = true;
-                foreach (var c in TimeTables[i].Monday.Courses)
+                foreach (var c in timeTables[i].Monday.Courses)
                 {
-                    if (TimeTables[i].Monday.Courses.Last() == c)
+                    if (timeTables[i].Monday.Courses.Last() == c)
                     {
                         sumEnd += (int)c.EndHour.Value.Hours;
                         countEnd++;
@@ -451,9 +454,9 @@ namespace FinalProject.Models
                     sTimeb = (TimeSpan)(c.EndHour + new TimeSpan(0, 10, 0));
                 }
                 first = true;
-                foreach (var c in TimeTables[i].Tuesday.Courses)
+                foreach (var c in timeTables[i].Tuesday.Courses)
                 {
-                    if (TimeTables[i].Tuesday.Courses.Last() == c)
+                    if (timeTables[i].Tuesday.Courses.Last() == c)
                     {
                         sumEnd += (int)c.EndHour.Value.Hours;
                         countEnd++;
@@ -475,9 +478,9 @@ namespace FinalProject.Models
                     sTimec = (TimeSpan)(c.EndHour + new TimeSpan(0, 10, 0));
                 }
                 first = true;
-                foreach (var c in TimeTables[i].Wednesday.Courses)
+                foreach (var c in timeTables[i].Wednesday.Courses)
                 {
-                    if (TimeTables[i].Wednesday.Courses.Last() == c)
+                    if (timeTables[i].Wednesday.Courses.Last() == c)
                     {
                         sumEnd += (int)c.EndHour.Value.Hours;
                         countEnd++;
@@ -499,9 +502,9 @@ namespace FinalProject.Models
                     sTimed = (TimeSpan)(c.EndHour + new TimeSpan(0, 10, 0));
                 }
                 first = true;
-                foreach (var c in TimeTables[i].Thursday.Courses)
+                foreach (var c in timeTables[i].Thursday.Courses)
                 {
-                    if (TimeTables[i].Thursday.Courses.Last() == c)
+                    if (timeTables[i].Thursday.Courses.Last() == c)
                     {
                         sumEnd += (int)c.EndHour.Value.Hours;
                         countEnd++;
@@ -523,9 +526,9 @@ namespace FinalProject.Models
                     sTimee = (TimeSpan)(c.EndHour + +new TimeSpan(0, 10, 0));
                 }
                 first = true;
-                foreach (var c in TimeTables[i].Friday.Courses)
+                foreach (var c in timeTables[i].Friday.Courses)
                 {
-                    if (TimeTables[i].Friday.Courses.Last() == c)
+                    if (timeTables[i].Friday.Courses.Last() == c)
                     {
                         sumEnd += (int)c.EndHour.Value.Hours;
                         countEnd++;
@@ -594,23 +597,23 @@ namespace FinalProject.Models
         }
         
         //Check constrains and delete timeTables
-        public List<TimeTable> TTConstraints(List<TimeTable> TimeTbl, int NumOfDays, List<HourLimit> HourLimits, List<DayLimit> Days)
+        public List<TimeTable> TTConstraints(List<TimeTable> timeTbl, int numOfDays, List<HourLimit> hourLimits, List<DayLimit> days)
         {
             List<TimeTable> TimeTables = new List<TimeTable>();
-            TimeSpan SundayStartLimit = new TimeSpan(HourLimits[0].StartTime, 0, 0);
-            TimeSpan SundayEndLimit = new TimeSpan(HourLimits[0].EndTime, 0, 0);
-            TimeSpan MondayStartLimit = new TimeSpan(HourLimits[1].StartTime, 0, 0);
-            TimeSpan MondayEndLimit = new TimeSpan(HourLimits[1].EndTime, 0, 0);
-            TimeSpan TuesdayStartLimit = new TimeSpan(HourLimits[2].StartTime, 0, 0);
-            TimeSpan TuesdayEndLimit = new TimeSpan(HourLimits[2].EndTime, 0, 0);
-            TimeSpan WednesdayStartLimit = new TimeSpan(HourLimits[3].StartTime, 0, 0);
-            TimeSpan WednesdayEndLimit = new TimeSpan(HourLimits[3].EndTime, 0, 0);
-            TimeSpan ThursdayStartLimit = new TimeSpan(HourLimits[4].StartTime, 0, 0);
-            TimeSpan ThursdayEndLimit = new TimeSpan(HourLimits[4].EndTime, 0, 0);
-            TimeSpan FridayStartLimit = new TimeSpan(HourLimits[5].StartTime, 0, 0);
-            TimeSpan FridayEndLimit = new TimeSpan(HourLimits[5].EndTime, 0, 0);
+            TimeSpan SundayStartLimit = new TimeSpan(hourLimits[0].StartTime, 0, 0);
+            TimeSpan SundayEndLimit = new TimeSpan(hourLimits[0].EndTime, 0, 0);
+            TimeSpan MondayStartLimit = new TimeSpan(hourLimits[1].StartTime, 0, 0);
+            TimeSpan MondayEndLimit = new TimeSpan(hourLimits[1].EndTime, 0, 0);
+            TimeSpan TuesdayStartLimit = new TimeSpan(hourLimits[2].StartTime, 0, 0);
+            TimeSpan TuesdayEndLimit = new TimeSpan(hourLimits[2].EndTime, 0, 0);
+            TimeSpan WednesdayStartLimit = new TimeSpan(hourLimits[3].StartTime, 0, 0);
+            TimeSpan WednesdayEndLimit = new TimeSpan(hourLimits[3].EndTime, 0, 0);
+            TimeSpan ThursdayStartLimit = new TimeSpan(hourLimits[4].StartTime, 0, 0);
+            TimeSpan ThursdayEndLimit = new TimeSpan(hourLimits[4].EndTime, 0, 0);
+            TimeSpan FridayStartLimit = new TimeSpan(hourLimits[5].StartTime, 0, 0);
+            TimeSpan FridayEndLimit = new TimeSpan(hourLimits[5].EndTime, 0, 0);
 
-                    foreach (var tt in TimeTbl)
+                    foreach (var tt in timeTbl)
                     {
                         var Check = true;
                                 foreach (var c in tt.Sunday.Courses)
@@ -656,9 +659,9 @@ namespace FinalProject.Models
                                         Check = false;
                                 }
                                 //Check days limit
-                                if ((tt.Sunday.Courses.Count() > 0 && Days[0].Checked) || (tt.Monday.Courses.Count() > 0 && Days[1].Checked)
-                                    || (tt.Tuesday.Courses.Count() > 0 && Days[2].Checked) || (tt.Wednesday.Courses.Count() > 0 && Days[3].Checked)
-                                    || (tt.Thursday.Courses.Count() > 0 && Days[4].Checked) || (tt.Friday.Courses.Count() > 0 && Days[5].Checked))
+                                if ((tt.Sunday.Courses.Count() > 0 && days[0].Checked) || (tt.Monday.Courses.Count() > 0 && days[1].Checked)
+                                    || (tt.Tuesday.Courses.Count() > 0 && days[2].Checked) || (tt.Wednesday.Courses.Count() > 0 && days[3].Checked)
+                                    || (tt.Thursday.Courses.Count() > 0 && days[4].Checked) || (tt.Friday.Courses.Count() > 0 && days[5].Checked))
                                     Check = false;
 
                                 //Check Number of free days limit
@@ -676,7 +679,7 @@ namespace FinalProject.Models
                                 if (tt.Friday.Courses.Count() == 0)
                                     Counter++;
 
-                                if (Counter < NumOfDays)
+                                if (Counter < numOfDays)
                                     Check = false;
 
                         if (Check)
@@ -697,9 +700,9 @@ namespace FinalProject.Models
         }
 
         //Sort timetables as user request
-        public List<TimeTable> SortTT(List<TimeTable> AllTimeTables, int SortBy)
+        public List<TimeTable> SortTT(List<TimeTable> AllTimeTables, int sortBy)
         {
-            switch (SortBy)
+            switch (sortBy)
             {
                 case 0:
                     AllTimeTables = AllTimeTables.OrderByDescending(t => t.StartHourAvg).ToList();
@@ -715,6 +718,47 @@ namespace FinalProject.Models
                     break;
             }
             return AllTimeTables;
+        }
+
+        //Get all departments
+        public List<SelectListItem> GetAllDepartments()
+        {
+            var departments = dal.GetAllDepartments();
+            return departments.Select(d => new SelectListItem() { Text = d.Name, Value = d.Id.ToString() }).ToList();
+        }
+
+        //Get all specializations by department
+        public List<Specializtions> GetSpecializationsByDepartment(int depId){
+            return dal.GetSpecializationsByDepartment(depId);
+        }
+
+        //Get all courses by specializtion
+        public object GetCoursesBySpecialization(int specId){
+            return dal.GetCoursesBySpecialization(specId);
+        }
+
+        //Get all courses that appears in current semester by user course choose
+        public List<CoursesDetails> GetSemesterCourses(List<Course> courses, int semester)
+        {
+            return dal.GetSemesterCourses(courses, semester);
+        }
+
+        //Get link table
+        public List<LinkTable> GetLink()
+        {
+            return dal.GetLink();
+        }
+
+        //Search course by course code
+        public List<Courses> SearchCourse(int courseCode)
+        {
+            return dal.SearchCourse(courseCode);
+        }
+
+        //Get specific course
+        public List<CoursesDetails> GetCourses(int groupCode, int semester)
+        {
+            return dal.GetCourses(groupCode, semester);
         }
     }
 }

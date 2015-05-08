@@ -3,6 +3,7 @@
     var k = 0;
     var TT;
     $('#tab3').on('click', function () {
+        $('#content').css({ 'background-color': 'transparent', 'width': '100%' });
         var chosenCourses = [];
         $('#select-to').find('option').each(function () {
             chosenCourses.push({ "SubjectCode": $(this).val(), "Name": $(this).text() });
@@ -45,7 +46,7 @@
                     //alert('לא נמצאו מערכות מתאימות');
                     //$('#alert').show();
                     //$('#alert').html("");    
-                    ShowMessageBox("לא נמצאו מערכות מתאימות", "שנה את המגבלות ונסה שנית");
+                    ShowMessageBox("לא נמצאו מערכות מתאימות", "שנה את הקורסים/מגבלות ונסה שנית");
                     //$('#alert').append("<h3 style=''margin-right:50px;>אנא חזור אחורנית ושנה את בחירותיך</h3>");
                 }
                 else {
@@ -111,14 +112,14 @@
             $('#Index').empty();
             $('#Index').append(k + 1);
 
-            $('#AllTT').append('<li><div id="hours"><div class="hours" id="0000"></div><div class="hours" id="0800">08:00</div><div class="hours" id="0900">09:00</div><div class="hours" id="1000">10:00</div><div class="hours" id="1100">11:00</div><div class="hours" id="1200">12:00</div><div class="hours" id="1300">13:00</div><div class="hours" id="1400">14:00</div><div class="hours" id="1500">15:00</div><div class="hours" id="1600">16:00</div><div class="hours" id="1700">17:00</div><div class="hours" id="1800">18:00</div><div class="hours" id="1900">19:00</div><div class="hours" id="2000">20:00</div><div class="hours" id="2100">21:00</div><div class="hours" id="2200">22:00</div></div><div id="daya' + k + '" class="days"></div><div id="dayb' + k + '" class="days"></div><div id="dayc' + k + '" class="days"></div><div id="dayd' + k + '" class="days"></div><div id="daye' + k + '" class="days"></div><div id="dayf' + k + '" class="days"></div></li>');
+            $('#AllTT').append('<li><div id="hours" style="color: white;"><div class="hours" id="0000"></div><div class="hours" id="0800">08:00</div><div class="hours" id="0900">09:00</div><div class="hours" id="1000">10:00</div><div class="hours" id="1100">11:00</div><div class="hours" id="1200">12:00</div><div class="hours" id="1300">13:00</div><div class="hours" id="1400">14:00</div><div class="hours" id="1500">15:00</div><div class="hours" id="1600">16:00</div><div class="hours" id="1700">17:00</div><div class="hours" id="1800">18:00</div><div class="hours" id="1900">19:00</div><div class="hours" id="2000">20:00</div><div class="hours" id="2100">21:00</div><div class="hours" id="2200">22:00</div></div><div id="daya' + k + '" class="days"></div><div id="dayb' + k + '" class="days"></div><div id="dayc' + k + '" class="days"></div><div id="dayd' + k + '" class="days"></div><div id="daye' + k + '" class="days"></div><div id="dayf' + k + '" class="days"></div></li>');
 
-            $("#daya" + k).append('<div class="" id="08432505" title=' + result[0].Sunday.Courses[0].SubjectDescription + ' style="overflow: hidden; height: 35px; width:100%; border: 1px solid;"><div class="ttClassColor"></div><span style="font-weight: bold; font-size: 12px;">' + result[0].Sunday.Courses[0].SubjectDescription + '<br></span><span style="font-weight: lighter; direction: rtl; text-align: right; float: right;"></span></div>');
-            $("#dayb" + k).append('<div class="" id="08432505" title=' + result[0].Monday.Courses[0].SubjectDescription + ' style="overflow: hidden; height: 35px; width:100%; border: 1px solid;"><div class="ttClassColor"></div><span style="font-weight: bold; font-size: 12px;">' + result[0].Monday.Courses[0].SubjectDescription + '<br></span><span style="font-weight: lighter; direction: rtl; text-align: right; float: right;"></span></div>');
-            $("#dayc" + k).append('<div class="" id="08432505" title=' + result[0].Tuesday.Courses[0].SubjectDescription + ' style="overflow: hidden; height: 35px; width:100%; border: 1px solid;"><div class="ttClassColor"></div><span style="font-weight: bold; font-size: 12px;">' + result[0].Tuesday.Courses[0].SubjectDescription + '<br></span><span style="font-weight: lighter; direction: rtl; text-align: right; float: right;"></span></div>');
-            $("#dayd" + k).append('<div class="" id="08432505" title=' + result[0].Wednesday.Courses[0].SubjectDescription + ' style="overflow: hidden; height: 35px; width:100%; border: 1px solid;"><div class="ttClassColor"></div><span style="font-weight: bold; font-size: 12px;">' + result[0].Wednesday.Courses[0].SubjectDescription + '<br></span><span style="font-weight: lighter; direction: rtl; text-align: right; float: right;"></span></div>');
-            $("#daye" + k).append('<div class="" id="08432505" title=' + result[0].Thursday.Courses[0].SubjectDescription + ' style="overflow: hidden; height: 35px; width:100%; border: 1px solid;"><div class="ttClassColor"></div><span style="font-weight: bold; font-size: 12px;">' + result[0].Thursday.Courses[0].SubjectDescription + '<br></span><span style="font-weight: lighter; direction: rtl; text-align: right; float: right;"></span></div>');
-            $("#dayf" + k).append('<div class="" id="08432505" title=' + result[0].Friday.Courses[0].SubjectDescription + ' style="overflow: hidden; height: 35px; width:100%; border: 1px solid;"><div class="ttClassColor"></div><span style="font-weight: bold; font-size: 12px;">' + result[0].Friday.Courses[0].SubjectDescription + '<br></span><span style="font-weight: lighter; direction: rtl; text-align: right; float: right;"></span></div>');
+            $("#daya" + k).append('<div class="" id="08432505" title=' + result[0].Sunday.Courses[0].SubjectDescription + ' style="overflow: hidden; height: 35px; width:100%; border: 1px solid; color: white;"><div class="ttClassColor"></div><span style="font-weight: bold; font-size: 12px;">' + result[0].Sunday.Courses[0].SubjectDescription + '<br></span><span style="font-weight: lighter; direction: rtl; text-align: right; float: right;"></span></div>');
+            $("#dayb" + k).append('<div class="" id="08432505" title=' + result[0].Monday.Courses[0].SubjectDescription + ' style="overflow: hidden; height: 35px; width:100%; border: 1px solid; color: white;"><div class="ttClassColor"></div><span style="font-weight: bold; font-size: 12px;">' + result[0].Monday.Courses[0].SubjectDescription + '<br></span><span style="font-weight: lighter; direction: rtl; text-align: right; float: right;"></span></div>');
+            $("#dayc" + k).append('<div class="" id="08432505" title=' + result[0].Tuesday.Courses[0].SubjectDescription + ' style="overflow: hidden; height: 35px; width:100%; border: 1px solid; color: white;"><div class="ttClassColor"></div><span style="font-weight: bold; font-size: 12px;">' + result[0].Tuesday.Courses[0].SubjectDescription + '<br></span><span style="font-weight: lighter; direction: rtl; text-align: right; float: right;"></span></div>');
+            $("#dayd" + k).append('<div class="" id="08432505" title=' + result[0].Wednesday.Courses[0].SubjectDescription + ' style="overflow: hidden; height: 35px; width:100%; border: 1px solid; color: white;"><div class="ttClassColor"></div><span style="font-weight: bold; font-size: 12px;">' + result[0].Wednesday.Courses[0].SubjectDescription + '<br></span><span style="font-weight: lighter; direction: rtl; text-align: right; float: right;"></span></div>');
+            $("#daye" + k).append('<div class="" id="08432505" title=' + result[0].Thursday.Courses[0].SubjectDescription + ' style="overflow: hidden; height: 35px; width:100%; border: 1px solid; color: white;"><div class="ttClassColor"></div><span style="font-weight: bold; font-size: 12px;">' + result[0].Thursday.Courses[0].SubjectDescription + '<br></span><span style="font-weight: lighter; direction: rtl; text-align: right; float: right;"></span></div>');
+            $("#dayf" + k).append('<div class="" id="08432505" title=' + result[0].Friday.Courses[0].SubjectDescription + ' style="overflow: hidden; height: 35px; width:100%; border: 1px solid; color: white;"><div class="ttClassColor"></div><span style="font-weight: bold; font-size: 12px;">' + result[0].Friday.Courses[0].SubjectDescription + '<br></span><span style="font-weight: lighter; direction: rtl; text-align: right; float: right;"></span></div>');
 
             for (var i = 1; i < result[k].Sunday.Courses.length; i++) {
                 var newColor = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6);
@@ -189,7 +190,8 @@
 
             $('.ttClass').css({ 'line-height': '1.50em', 'margin-left': '-1px', 'margin-top': '-1px', 'border-width': '1px', 'border-style': 'solid', 'overflow': 'hidden', 'border-radius': '6px 6px 6px 6px', 'opacity': '0.8', 'z-index': '5' });
             $('.empty').css({ 'line-height': '1.50em', 'margin-left': '-1px', 'margin-top': '-1px', 'border-width': '1px', 'border-style': 'solid', 'overflow': 'hidden', 'z-index': '5', 'background-color': 'white' });
-            //$('#logo').hide();
+            
+            //$('#footer').hide();
 
             var script = document.createElement('script');
             script.type = 'text/javascript';
@@ -213,7 +215,7 @@ function ShowDialog(modal) {
     }
     else {
         $("#overlay").click(function () {
-            HideDialog();
+            HideDialog();           
         });
     }
 }
@@ -223,6 +225,9 @@ function ShowDialog(modal) {
 function HideDialog() {
     $("#overlay").hide();
     $("#dialog").fadeOut(300);
+    $('#content').css({ 'background-color': '#575c54', 'width': '60%' });
+    $('#tab1').show().siblings().hide();
+    $('#tab1c').addClass('active').siblings().removeClass('active');
 }
 
 function ShowMessageBox(headerMessage, bodyMessage) {

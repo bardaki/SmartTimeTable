@@ -10,13 +10,14 @@ namespace SmartTimeTable.Controllers
 {
     public class CoursesController : Controller
     {
-        private DAL dal = new DAL();
         private BL bl = new BL();
+
         //Set the index page with departments data
         public ActionResult Index()
         {
-            var departments = dal.GetAllDepartments();
-            var items = departments.Select(d => new SelectListItem() { Text = d.Name, Value = d.Id.ToString() }).ToList();
+            var items = bl.GetAllDepartments();
+            //var departments = dal.GetAllDepartments();
+            //var items = departments.Select(d => new SelectListItem() { Text = d.Name, Value = d.Id.ToString() }).ToList();
             //ViewBag.Departments = items;
             var ReturnModel = new DepartmentsModel(items);
 
@@ -27,7 +28,7 @@ namespace SmartTimeTable.Controllers
         public ActionResult GetYears(string d)
         {
             var depId = Convert.ToInt32(d);
-            var years = dal.GetSpecializationsByDepartment(depId);
+            var years = bl.GetSpecializationsByDepartment(depId);
 
             return Json(years);
         }
@@ -36,25 +37,25 @@ namespace SmartTimeTable.Controllers
         public ActionResult GetCoursesBySpecialization(string d)
         {
             var specId = Convert.ToInt32(d);
-            var courses = dal.GetCoursesBySpecialization(specId);
+            var courses = bl.GetCoursesBySpecialization(specId);
 
             return Json(courses);
         }
 
         //Get all timetables
-        public ActionResult GetTimeTables(TTRequest Request)
+        public ActionResult GetTimeTables(TTRequest request)
         {
-            var Courses = Request.Courses;
-            var Semester = Request.Semester;
-            var semesterCourses = dal.GetSemesterCourses(Courses, Semester);
-            var link = dal.GetLink();
+            var Courses = request.Courses;
+            var Semester = request.Semester;
+            var semesterCourses = bl.GetSemesterCourses(Courses, Semester);
+            var link = bl.GetLink();
             if (semesterCourses == null)
                 return null;
 
-            var NumOfDays = Request.NumOfDays;
-            var HourLimits = Request.HourLimits;
-            var Days = Request.Days;
-            var SortBy = Request.SortBy;
+            var NumOfDays = request.NumOfDays;
+            var HourLimits = request.HourLimits;
+            var Days = request.Days;
+            var SortBy = request.SortBy;
             List<TimeTable> TimeTables = bl.GetTimeTable(semesterCourses, link, NumOfDays, HourLimits, Days, SortBy);
 
             var jsonResult = Json(TimeTables, JsonRequestBehavior.AllowGet);
@@ -64,16 +65,16 @@ namespace SmartTimeTable.Controllers
         }
 
         //Search course
-        public ActionResult SearchCourse(int CourseCode)
+        public ActionResult SearchCourse(int courseCode)
         {
-            var course = dal.SearchCourse(CourseCode);
+            var course = bl.SearchCourse(courseCode);
             return Json(course);
         }
 
         //Get specific course
         public List<CoursesDetails> GetCourses(int groupCode, int semester)
         {
-            return dal.GetCourses(groupCode, semester);
+            return bl.GetCourses(groupCode, semester);
         }
     }
 }

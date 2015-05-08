@@ -2,7 +2,9 @@
     font-size: .85em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
     color: #232323;
-    background-color: #4c4c4c;
+    /*background-color: #4c4c4c;*/
+     background-image: url("./themes/base/images/pattern.png");
+    background-repeat: repeat;
     text-align: right;
     height: 100%;
 }
@@ -102,13 +104,15 @@ textarea {
 
 #ddlDepart, #ddlYears, #coursesList, #limit{
     margin-right: 50px;
+    margin-top:15px;
     font-size: 14px;
     text-align: right;
     border-collapse: collapse;
 } 
 
 #limit{
-    width:40%;
+    width:70%;
+    height:350px;
 }
 
 #addRemoveCourses{
@@ -119,12 +123,33 @@ textarea {
     margin-top: 0px;
 }
 
+footer {
+    margin-left: 0px;
+    margin-right: auto;
+    width:70%;
+    font: 140% 'News Cycle', arial, sans-serif;
+    height: 28px;
+    padding: 1px 0 25px 0;
+    color: #222;
+    text-align: center;
+    background: #ddd;
+    
+}
+
+#logoimg {
+    overflow:auto; 
+}
+
+#copyr {
+    float:left;
+    width:70%;
+}
 
 /*----- Tabs -----*/
 .tabs {
     width:100%;
     display:inline-block;
-    height: 100%;
+    /*height: 100%;*/
 }
  
     /*----- Tab Links -----*/
@@ -134,7 +159,7 @@ textarea {
         clear:both;
         content:'';
     }
- 
+
     .tab-links li {
         margin:0px 5px;
         float:right;
@@ -145,30 +170,34 @@ textarea {
             padding:9px 15px;
             display:inline-block;
             border-radius:3px 3px 0px 0px;
-            background:#87d27f;
-            font-size:16px;
+            background:#ddd;
+            font-size:18px;
             font-weight:600;
-            color:#4c4c4c;
+            color:black;
             transition:all linear 0.15s;
         }
  
         .tab-links a:hover {
-            background:#bee3a7;
+            background:#55624c;
             text-decoration:none;
+            color:#8aed76;
         }
  
     li.active a, li.active a:hover {
-        background:#fff;
-        color:#4c4c4c;
+        background:#55624c;
+        color:white;
     }
  
     /*----- Content of Tabs -----*/
     .tab-content {
         /*padding-top:5%;*/
         /*padding-bottom:20%;*/
-        /*border-radius:50px;*/
-        /*background:gray;*/
-
+        border-radius:10px;
+        margin-left: auto;
+        margin-right: auto;
+        width:60%;
+        background-color:#575c54;
+        height:400px;
     }
  
     .tab {
@@ -202,8 +231,8 @@ textarea {
 .web_dialog {
     display: none;
     position: fixed;
-    width: 380px;
-    height: 100px;
+    width: 400px;
+    height: 120px;
     top: 50%;
     left: 50%;
     margin-left: -190px;
@@ -212,8 +241,8 @@ textarea {
     border: 2px solid black;
     padding: 0;
     z-index: 102;
-    font-family: Verdana;
-    font-size: 10pt;
+    font: 140% 'News Cycle', arial, sans-serif;
+    font-size: 12pt;
 }
 
 .web_dialog_title {
@@ -233,3 +262,4 @@ textarea {
 .align_right {
     text-align: left;
 }
+

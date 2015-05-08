@@ -45,19 +45,19 @@ namespace FinalProject.DAL
         }
 
         //Get all courses that appears in current semester by user course choose
-        public List<CoursesDetails> GetSemesterCourses(List<Course> Courses, int Semester)
+        public List<CoursesDetails> GetSemesterCourses(List<Course> courses, int semester)
         {
-            if (Courses == null)
+            if (courses == null)
                 return null;
             using (var ctx = new CoursesEntities())
             {
                 ctx.Configuration.LazyLoadingEnabled = false;
                 var semesterCourses = new List<CoursesDetails>();
                 TimeSpan t = new TimeSpan(10,0,0);
-                foreach (var c in Courses)
+                foreach (var c in courses)
                 {
                     semesterCourses.AddRange(ctx.CoursesDetails.
-                        Where(s => s.SubjectCode == c.SubjectCode && s.Semester == Semester).ToList()); 
+                        Where(s => s.SubjectCode == c.SubjectCode && s.Semester == semester).ToList()); 
                     //semesterCourses.AddRange(ctx.SummerSemester.
                     //    Where(s => s.SubjectDescription == c.Name).ToList()); 
                 }
@@ -73,19 +73,19 @@ namespace FinalProject.DAL
                         Names.Add(c.SubjectDescription);
                         Count++;
                     }
-                if (Count != Courses.Count())
+                if (Count != courses.Count())
                     return null;
                 return semesterCourses;               
             }
         }
 
         //Search course by course code
-        public List<Courses> SearchCourse(int CourseCode)
+        public List<Courses> SearchCourse(int courseCode)
         {
             using (var ctx = new CoursesEntities())
             {
                 ctx.Configuration.LazyLoadingEnabled = false;
-                var course = ctx.Courses.Where(c => c.SubjectCode == CourseCode).ToList();
+                var course = ctx.Courses.Where(c => c.SubjectCode == courseCode).ToList();
                 
                 if(course.Count > 0 )
                     return course;

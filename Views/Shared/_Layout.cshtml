@@ -3,21 +3,34 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+
     <script src="~/Scripts/jquery-1.8.2.min.js"></script>
     <script src="~/Scripts/Pages/CoureseIndexScript.js"></script>
-    <script src="~/Scripts/Pages/Tabs.js"></script>
-    <link href="~/Content/Site.css" rel="stylesheet" />
-    <script src="~/Scripts/Pages/TimeTables.js"></script>
-    <link href="~/Content/themes/jcarousel.connected-carousels.css" rel="stylesheet" />
+    <script src="~/Scripts/Pages/Tabs.js"></script>    
+    <script src="~/Scripts/Pages/TimeTables.js"></script>   
     <script src="~/Scripts/Pages/jquery.jcarousel.min.js"></script>
     <script src="~/Scripts/Pages/jcarousel.connected-carousels.js"></script>
+    @*<script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/npm.js"></script>*@
+
+
+    @*<link href="~/Content/themes/base/bootstrap-theme.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/bootstrap.min.css" rel="stylesheet" />*@
+    <link href="~/Content/themes/jcarousel.connected-carousels.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    
+
+
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body id="body" dir="rtl">
-    <div id="top">
-        <div>
+   @* <div id="top">*@
+        @*<div>*@
             @*@Html.ActionLink("דף הבית", "Index", "Home")*@
             @*<span> | </span>*@
             @*if (Request.IsAuthenticated)*@
@@ -32,8 +45,8 @@
                 @*@Html.ActionLink("כניסה", "Login", "Account")*@
             @*}*@
             
-        </div>
-    </div>
+       @* </div>*@
+  @*  </div>*@
 
     <div id="output"></div>
     <div id="overlay" class="web_dialog_overlay"></div>

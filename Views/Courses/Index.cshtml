@@ -7,19 +7,20 @@
     <link href="~/Content/themes/jcarousel.connected-carousels.css" rel="stylesheet" />
     <script src="~/Scripts/Pages/jquery.jcarousel.min.js"></script>
     <script src="~/Scripts/Pages/jcarousel.connected-carousels.js"></script>
+
+    @*<div class="table-responsive">*@
     <div class="tabs">
-        <div style="color:white;text-align:left;"> כתובת מייל לשליחת באגים    <a href="mailto:smarttimetable.bar@gmail.com" style="color:white">smarttimetable.bar@gmail.com</a></div>
-       @* <div id="tabsTiltles">*@
         <ul class="tab-links">
-            <li class="active"><a href="#tab1">בחירת קורסים</a></li>
+            <li class="active" id="tab1c"><a href="#tab1">בחירת קורסים</a></li>
             <li><a href="#tab2">מגבלות ומיון</a></li>
             <li><a href="#tab3" id="tab3">מערכות מוצעות</a></li>          
         </ul>
-       @* </div>*@
-        <div class="tab-content" style="height: 100%;" id="content">
+        @*<a href="#" id="backBtn">הקודם</a>
+        <a href="#" id="nextBtn">הבא</a>*@
+        <div class="tab-content" id="content">
+            
             <div id="tab1" class="tab active">               
                 <div style="text-align:right;margin-top:70px;">                                
-                    @*@Html.DropDownList("Departments", null, new { @id = "ddlDepart" })*@
                     @Html.DropDownListFor(m=>m.Text, Model.Departments, new { @id = "ddlDepart" })
                     <select style="display: none;" id="ddlYears" name="Years"></select>
                     <br /><br />
@@ -75,7 +76,7 @@
                                         <span><select id="sundayStartLimit"><option value="8">8:00</option><option="9">9:00</option value="9"><option value="10">10:00</option><option value="11">11:00</option><option value="12">12:00</option><option value="13">13:00</option><option value="14">14:00</option><option value="15">15:00</option><option value="16">16:00</option><option value="17">17:00</option></select></span> 
                                     </td>
                                     <td>
-                                        <span><select id="sundayEndLimit"><option value="14">14:00</option><option value="15">15:00</option><option value="16">16:00</option><option value="17">17:00</option><option value="18">18:00</option><option value="19">19:00</option><option value="20">20:00</option><option value="21">21:00</option><option value="22">22:00</option><option value="23" selected="selected">23:00</option></select></span>
+                                        <span><select id="sundayEndLimit"><option value="12">12:00</option><option value="13">13:00</option><option value="14">14:00</option><option value="15">15:00</option><option value="16">16:00</option><option value="17">17:00</option><option value="18">18:00</option><option value="19">19:00</option><option value="20">20:00</option><option value="21">21:00</option><option value="22">22:00</option><option value="23" selected="selected">23:00</option></select></span>
                                     </td>
                                     <td style="text-align:center;"><input type="checkbox" id="sunday" value="יום ראשון" /></td>
                                 </tr>
@@ -85,7 +86,7 @@
                                         <span><select id="mondayStartLimit"><option value="8">8:00</option><option="9">9:00</option value="9"><option value="10">10:00</option><option value="11">11:00</option><option value="12">12:00</option><option value="13">13:00</option><option value="14">14:00</option><option value="15">15:00</option><option value="16">16:00</option><option value="17">17:00</option></select></span> 
                                     </td>
                                     <td>
-                                        <span><select id="mondayEndLimit"><option value="14">14:00</option><option value="15">15:00</option><option value="16">16:00</option><option value="17">17:00</option><option value="18">18:00</option><option value="19">19:00</option><option value="20">20:00</option><option value="21">21:00</option><option value="22">22:00</option><option value="23" selected="selected">23:00</option></select></span>
+                                        <span><select id="mondayEndLimit"><option value="12">12:00</option><option value="13">13:00</option><option value="14">14:00</option><option value="15">15:00</option><option value="16">16:00</option><option value="17">17:00</option><option value="18">18:00</option><option value="19">19:00</option><option value="20">20:00</option><option value="21">21:00</option><option value="22">22:00</option><option value="23" selected="selected">23:00</option></select></span>
                                     </td>
                                     <td style="text-align:center;"><input type="checkbox" id="monday" value="יום שני" /></td>
                                 </tr>
@@ -95,7 +96,7 @@
                                         <span><select id="tuesdayStartLimit"><option value="8">8:00</option><option="9">9:00</option value="9"><option value="10">10:00</option><option value="11">11:00</option><option value="12">12:00</option><option value="13">13:00</option><option value="14">14:00</option><option value="15">15:00</option><option value="16">16:00</option><option value="17">17:00</option></select></span> 
                                     </td>
                                     <td>
-                                        <span><select id="tuesdayEndLimit"><option value="14">14:00</option><option value="15">15:00</option><option value="16">16:00</option><option value="17">17:00</option><option value="18">18:00</option><option value="19">19:00</option><option value="20">20:00</option><option value="21">21:00</option><option value="22">22:00</option><option value="23" selected="selected">23:00</option></select></span>
+                                        <span><select id="tuesdayEndLimit"><option value="12">12:00</option><option value="13">13:00</option><option value="14">14:00</option><option value="15">15:00</option><option value="16">16:00</option><option value="17">17:00</option><option value="18">18:00</option><option value="19">19:00</option><option value="20">20:00</option><option value="21">21:00</option><option value="22">22:00</option><option value="23" selected="selected">23:00</option></select></span>
                                     </td>
                                     <td style="text-align:center;"><input type="checkbox" id="tuesday" value="יום שלישי" /></td>
                                 </tr>
@@ -105,7 +106,7 @@
                                         <span><select id="wednesdayStartLimit"><option value="8">8:00</option><option="9">9:00</option value="9"><option value="10">10:00</option><option value="11">11:00</option><option value="12">12:00</option><option value="13">13:00</option><option value="14">14:00</option><option value="15">15:00</option><option value="16">16:00</option><option value="17">17:00</option></select></span> 
                                     </td>
                                     <td>
-                                        <span><select id="wednesdayEndLimit"><option value="14">14:00</option><option value="15">15:00</option><option value="16">16:00</option><option value="17">17:00</option><option value="18">18:00</option><option value="19">19:00</option><option value="20">20:00</option><option value="21">21:00</option><option value="22">22:00</option><option value="23" selected="selected">23:00</option></select></span>
+                                        <span><select id="wednesdayEndLimit"><option value="12">12:00</option><option value="13">13:00</option><option value="14">14:00</option><option value="15">15:00</option><option value="16">16:00</option><option value="17">17:00</option><option value="18">18:00</option><option value="19">19:00</option><option value="20">20:00</option><option value="21">21:00</option><option value="22">22:00</option><option value="23" selected="selected">23:00</option></select></span>
                                     </td>
                                     <td style="text-align:center;"><input type="checkbox" id="wednesday" value="יום רביעי" /></td>
                                 </tr>
@@ -115,7 +116,7 @@
                                         <span><select id="thursdayStartLimit"><option value="8">8:00</option><option="9">9:00</option value="9"><option value="10">10:00</option><option value="11">11:00</option><option value="12">12:00</option><option value="13">13:00</option><option value="14">14:00</option><option value="15">15:00</option><option value="16">16:00</option><option value="17">17:00</option></select></span> 
                                     </td>
                                     <td>
-                                        <span><select id="thursdayEndLimit"><option value="14">14:00</option><option value="15">15:00</option><option value="16">16:00</option><option value="17">17:00</option><option value="18">18:00</option><option value="19">19:00</option><option value="20">20:00</option><option value="21">21:00</option><option value="22">22:00</option><option value="23" selected="selected">23:00</option></select></span>
+                                        <span><select id="thursdayEndLimit"><option value="12">12:00</option><option value="13">13:00</option><option value="14">14:00</option><option value="15">15:00</option><option value="16">16:00</option><option value="17">17:00</option><option value="18">18:00</option><option value="19">19:00</option><option value="20">20:00</option><option value="21">21:00</option><option value="22">22:00</option><option value="23" selected="selected">23:00</option></select></span>
                                     </td>
                                     <td style="text-align:center;"><input type="checkbox" id="thursday" value="יום חמישי" /></td>
                                 </tr>
@@ -125,27 +126,12 @@
                                         <span><select id="fridayStartLimit"><option value="8">8:00</option><option="9">9:00</option value="9"><option value="10">10:00</option><option value="11">11:00</option><option value="12">12:00</option><option value="13">13:00</option><option value="14">14:00</option><option value="15">15:00</option><option value="16">16:00</option><option value="17">17:00</option></select></span> 
                                     </td>
                                     <td>
-                                        <span><select id="fridayEndLimit"><option value="14">14:00</option><option value="15">15:00</option><option value="16">16:00</option><option value="17">17:00</option><option value="18">18:00</option><option value="19">19:00</option><option value="20">20:00</option><option value="21">21:00</option><option value="22">22:00</option><option value="23" selected="selected">23:00</option></select></span>
+                                        <span><select id="fridayEndLimit"><option value="12">12:00</option><option value="13">13:00</option><option value="14">14:00</option><option value="15">15:00</option><option value="16">16:00</option><option value="17">17:00</option><option value="18">18:00</option><option value="19">19:00</option><option value="20">20:00</option><option value="21">21:00</option><option value="22">22:00</option><option value="23" selected="selected">23:00</option></select></span>
                                     </td>
                                     <td style="text-align:center;"><input type="checkbox" id="friday" value="יום שישי" /></td>
                                 </tr>
                             </table>
-                            
-                            
-                            <!--<p> להתחיל ללמוד מהשעה 10:00 והלאה<input type="checkbox" id="stTen" value="מעוניין להתחיל ללמוד מהשעה 10:00 והלאה" /></p>
-                            <p> להתחיל ללמוד מהשעה 12:00 והלאה<input type="checkbox" id="stTwelve" value="מעוניין להתחיל ללמוד מהשעה 12:00 והלאה" /></p>
-                            <p> לסיים ללמוד עד השעה 16:00<input type="checkbox" id="endFour" value="מעוניין לסיים ללמוד עד השעה 16:00" /></p>
-                            <p> לסיים ללמוד עד השעה 18:00<input type="checkbox" id="endSix" value="מעוניין לסיים ללמוד עד השעה 18:00" /></p>-->
                         </td> 
-                        @*<td id="specDays" valign="top">
-                            <h3>ימים ספציפיים ללא לימודים</h3>
-                            <p>יום ראשון<input type="checkbox" id="sunday" value="יום ראשון" /></p>
-                            <p>יום שני<input type="checkbox" id="monday" value="יום שני" /></p>
-                            <p>יום שלישי<input type="checkbox" id="tuesday" value="יום שלישי" /></p>
-                            <p>יום רביעי<input type="checkbox" id="wednesday" value="יום רביעי" /></p>
-                            <p>יום חמישי<input type="checkbox" id="thursday" value="יום חמישי" /></p>
-                            <p>יום שישי<input type="checkbox" id="friday" value="יום שישי" /></p>
-                        </td>*@
                         <td valign="top">
                             <h3>מספר ימים בשבוע ללא לימודים</h3>
                             <input type="number" id="numDays" min="0" max="6" value="0" />
@@ -179,9 +165,14 @@
             </div>
         </div>
     </div>
-
+    
     <div id="logo" style="background-color: black; position:absolute; bottom: 0; right: 0; width: 100%">
-        <img src="~/Content/themes/base/images/AfekaLogo.PNG" />
+        <div id="copyr">
+            <footer id="footer">
+            <p>Copyright © Bar Yariv | <a href="mailto:smarttimetable.bar@gmail.com">smarttimetable.bar@gmail.com</a></p>
+        </footer>
+        </div>
+        <div id="logoimg"><img src="~/Content/themes/base/images/AfekaLogo.PNG" /></div>
     </div>
 
-
+        @*</div>*@
